@@ -44,10 +44,10 @@ for example:
 array = BitFieldArray(3, 7, 8, 9)
 array.assign([5, 6, 7, 8])
 number = array.export()
-print((number >> 0) & ((1 << 7) -1)) # 5
+print((number >> 0) & ((1 << 3) -1)) # 5
 print((number >> 3) & ((1 << 7) -1)) # 6
-print((number >> 10) & ((1 << 7) -1)) # 7
-print((number >> 18) & ((1 << 7) -1)) # 8
+print((number >> 10) & ((1 << 8) -1)) # 7
+print((number >> 18) & ((1 << 9) -1)) # 8
 ```
 0 is the first time we access the array, we don't need to shift it.
 
