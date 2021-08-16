@@ -128,10 +128,12 @@ class BitFieldArray(UserList):
             And eventually the number will be 0 - consumed array.
         """
         n = 0
+        pushed = 0
         for i in self.data:
             if i.is_null:
                 break
-            n = n << i.max_bits | i.value
+            n |= i.value << pushed
+            pushed += i.max_bits
         return n
 
     def export_as_bytes(self, order):
@@ -178,5 +180,3 @@ class BitFieldArray(UserList):
         """
         as_int = int.from_bytes(value, order)
         return self.from_int(as_int)
-
-print(BitFieldArray(1,1,1,1,1,1,1).from_int(62).to_list())
