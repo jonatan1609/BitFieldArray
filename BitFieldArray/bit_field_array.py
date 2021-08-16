@@ -108,10 +108,10 @@ class BitFieldArray(UserList):
             array = BitFieldArray(3, 7, 8, 9)
             array.assign([5, 6, 7, 8])
             number = array.export()
-            print((number >> 0) & ((1 << 7) -1)) # 5
+            print((number >> 0) & ((1 << 3) -1)) # 5
             print((number >> 3) & ((1 << 7) -1)) # 6
-            print((number >> 10) & ((1 << 7) -1)) # 7
-            print((number >> 18) & ((1 << 7) -1)) # 8
+            print((number >> 10) & ((1 << 8) -1)) # 7
+            print((number >> 18) & ((1 << 9) -1)) # 8
 
             0 is the first time we access the array, we don't need to shift it.
             And then we shift is 3 bits since the last one was 3 bits.
@@ -128,12 +128,10 @@ class BitFieldArray(UserList):
             And eventually the number will be 0 - consumed array.
         """
         n = 0
-        pushed = 0
         for i in self.data:
             if i.is_null:
                 break
-            n |= i.value << pushed
-            pushed += i.max_bits
+            n = n << i.max_bits | i.value
         return n
 
     def export_as_bytes(self, order):
@@ -165,11 +163,10 @@ class BitFieldArray(UserList):
         Parameters:
             value: `int`, the number to create the instance from.
         """
-        pushed = 0
         data = []
         for bits in self.data:
-            data.append((value >> pushed) & (1 << bits.max_bits) - 1)
-            pushed += bits.max_bits
+            data.append(value & (1 << bits.max_bits) - 1)
+            value >>= bits.max_bits
         return self.assign(data)
 
     def from_bytes(self, value: bytes, order: str):
@@ -181,3 +178,5 @@ class BitFieldArray(UserList):
         """
         as_int = int.from_bytes(value, order)
         return self.from_int(as_int)
+
+print(BitFieldArray(1,1,1,1,1,1,1).from_int(62).to_list())

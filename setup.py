@@ -1,6 +1,6 @@
 from setuptools import setup, find_packages
 
-__version__ = "1.0.1"
+__version__ = "1.0.2"
 
 with open("README.md") as f:
     long_description = f.read()
@@ -14,7 +14,7 @@ setup(
                 "Usually useful for transmitting arrays and structures over the network.",
     long_description=long_description,
     long_description_content_type="text/markdown",
-    url="https://github.com/jonatan1609/BitFieldArrray",
+    url="https://github.com/jonatan1609/BitFieldArray",
     packages=find_packages(),
     classifiers=[
         "License :: OSI Approved :: The Unlicense (Unlicense)",

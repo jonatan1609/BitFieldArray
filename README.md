@@ -51,7 +51,7 @@ print((number >> 18) & ((1 << 9) -1)) # 8
 ```
 0 is the first time we access the array, we don't need to shift it.
 
-And then we shift is 3 bits since the last one was 3 bits.
+And then we shift it 3 bits since the last one was 3 bits.
 
 And then we shift it 10 bits since the latter ones were 3+7 bits, and so on.
 
